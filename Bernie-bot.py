@@ -1,3 +1,7 @@
+# Heng was able to use git pull and git add/commit/push, yay!
+
+
+
 print('Welcome to the Bernie chatbot.')
 
 def bernie_bot():
