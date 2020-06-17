@@ -1,2 +1,2 @@
 # Bernie-bot
-A bot talking Bernie
+A chatbot speaking for Bernie Sanders
