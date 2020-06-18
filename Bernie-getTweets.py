@@ -1,0 +1,20 @@
+##
+# This is to get Tweets from a account
+##
+import tweepy
+
+##
+# The key and secret for Bernie-bot2.0
+consumer_key = "Ulo6zYN4J6LQu23c3NCoFX0rh"
+consumer_secret = "t4ErUnVCsJ6v88vhmB5olHHSUJiC4amYgcCcyxWajyW6ZB3Jlm"
+access_token = ""
+access_token_secret = ""
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+
+public_tweets = api.home_timeline()
+for tweet in public_tweets:
+    print(tweet.text)
