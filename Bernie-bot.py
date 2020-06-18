@@ -41,5 +41,6 @@ def bernie_election():
     
 bernie_bot()
 #jared
+#cool
 #Amelia
 #lorena
