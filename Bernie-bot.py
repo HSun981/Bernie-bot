@@ -38,3 +38,4 @@ def bernie_election():
         print("Okay!")
     
 bernie_bot()
+#Amelia
