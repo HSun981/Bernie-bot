@@ -26,7 +26,7 @@ def getAllTweets():
 def tweet(message):
     api.update_status(message)
 
-
+#jared
 print("Testrun Start")
 tweet("Hello World!")
 getAllTweets()
