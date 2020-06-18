@@ -3,14 +3,9 @@
 ##
 import tweepy
 
-##
-# The key and secret for Bernie-bot2.0
-consumer_key = "Ulo6zYN4J6LQu23c3NCoFX0rh"
-consumer_secret = "t4ErUnVCsJ6v88vhmB5olHHSUJiC4amYgcCcyxWajyW6ZB3Jlm"
-access_token = "1244663487147671559-2TpqoL9UTCqzhLhlSWYIZM9TsW82dF"
-access_token_secret = "Ne8rdcEwKOUHNJrz5Fr3uWA6h8qODWENDSPO5fXFQr6aV"
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+import config
+auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
+auth.set_access_token(config.access_token, config.access_token_secret)
 api = tweepy.API(auth)
 
 ##
