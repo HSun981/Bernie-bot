@@ -1,9 +1,11 @@
-# Heng was able to use git pull and git add/commit/push, yay!
-
-
-
+##
+# This is a module comment.
+##
 print('Welcome to the Bernie chatbot.')
 
+##
+# This comment provides documentation for the following
+# variable.
 def bernie_bot():
     policy_question="y"
       
