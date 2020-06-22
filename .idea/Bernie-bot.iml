@@ -5,6 +5,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+<<<<<<< HEAD
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />
   </component>
@@ -12,4 +13,6 @@
     <option name="format" value="EPYTEXT" />
     <option name="myDocStringFormat" value="Epytext" />
   </component>
+=======
+>>>>>>> 565c0a18d92b09222bd98b068b323d0f4fcd1b9e
 </module>
