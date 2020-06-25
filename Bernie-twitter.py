@@ -6,7 +6,9 @@ import tweepy
 import config
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
+PAST_TWEET_NUM = 50  # The number of twitter that we search thru
 
+# Api set up: this should go in main as soon as we have one, or make it global constant --Heng
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
 auth.set_access_token(config.access_token, config.access_token_secret)
 api = tweepy.API(auth)
@@ -36,7 +38,8 @@ def getUserTweet(userName):
 
 def searchUserTweet(userName, keyword):
     """
-    Search for past tweets about a specific key word from a user (and store in a file).
+    Search for a number of (PAST_TWEET_NUM) past tweets about a specific key word from a user (
+    and store in a file).
     @param userName: the user name of the target account
     @param keyword: the keyword to be included in every tweet
     @return: a list of tweets on this matter
