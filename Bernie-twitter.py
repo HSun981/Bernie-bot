@@ -73,6 +73,8 @@ def getRandomPastSpeech(userName, keyword):
 
     return message
 
+#generative code from other doc
+from Generatingstatementstotweet import generated_text
 
 # user = api.get_user('BernieSanders')
 # public_tweets = api.user_timeline('BernieSanders')
@@ -82,5 +84,6 @@ print("Testrun Start")
 # api.update_status(message)
 # getUser()
 # getUserTweet(BERNIE_SCREEN_NAME)
-tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
+#tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
+api.update_status(generated_text)
 print("Testrun Over")
