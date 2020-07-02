@@ -8,7 +8,7 @@ import config
 BERNIE_SCREEN_NAME = '@BernieSanders'
 PAST_TWEET_NUM = 50  # The number of twitter that we search thru
 
-# Api set up: this should go in main as soon as we have one, or make it global constant --Heng
+# Api set up: this should go in main if we have one, or make it global constant? --Heng
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
 auth.set_access_token(config.access_token, config.access_token_secret)
 api = tweepy.API(auth)
