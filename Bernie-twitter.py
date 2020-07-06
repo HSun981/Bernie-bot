@@ -4,6 +4,7 @@ This is the main function of the Bernie bot.
 import random
 import tweepy
 import config
+import time
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
 PAST_TWEET_NUM = 50  # The number of twitter that we search thru
@@ -76,14 +77,18 @@ def getRandomPastSpeech(userName, keyword):
 #generative code from other doc
 from Generatingstatementstotweet import generated_text
 
+#setting up time
+while True:
+    api.update_status(generated_text)
+    time.sleep(15)
+
 # user = api.get_user('BernieSanders')
 # public_tweets = api.user_timeline('BernieSanders')
 # for tweet in public_tweets:
 # print(tweet.text)
-print("Testrun Start")
+#print("Testrun Start")
 # api.update_status(message)
 # getUser()
 # getUserTweet(BERNIE_SCREEN_NAME)
 #tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
-api.update_status(generated_text)
-print("Testrun Over")
+#print("Testrun Over")
