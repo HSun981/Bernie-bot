@@ -74,7 +74,7 @@ def getRandomPastSpeech(userName, keyword):
 
     return message
 
-#generative code from other doc, Amelia will organize this better soon
+#generative code from other doc
 import re
 import random
 import nltk
@@ -148,10 +148,10 @@ my_markov.add_document(training_doc2)
 my_markov.add_document(training_doc3)
 
 #setting up time
-#while True:
-   # generated_text = my_markov.generate_text()
-    #api.update_status(generated_text)
-    #time.sleep(15)
+while True:
+    generated_text = my_markov.generate_text()
+    api.update_status(generated_text)
+    time.sleep(15)
 
 # user = api.get_user('BernieSanders')
 # public_tweets = api.user_timeline('BernieSanders')
