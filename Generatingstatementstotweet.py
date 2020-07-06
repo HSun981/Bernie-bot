@@ -70,5 +70,5 @@ my_markov = MarkovChain()
 my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
 my_markov.add_document(training_doc3)
-generated_text = my_markov.generate_text()
+
 
