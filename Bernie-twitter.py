@@ -5,6 +5,17 @@ import random
 import tweepy
 import config
 import time
+import re
+import nltk
+
+nltk.download('punkt')
+
+from nltk.tokenize import word_tokenize
+from collections import defaultdict, deque
+from Berniespeech1 import training_doc1
+from Berniespeech2 import training_doc2
+from Berniespeech3 import training_doc3
+
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
 PAST_TWEET_NUM = 50  # The number of twitter that we search thru
@@ -74,20 +85,11 @@ def getRandomPastSpeech(userName, keyword):
 
     return message
 
-#generative code from other doc
-import re
-import random
-import nltk
-nltk.download('punkt')
-
-from nltk.tokenize import word_tokenize
-from collections import defaultdict, deque
-from Berniespeech1 import training_doc1
-from Berniespeech2 import training_doc2
-from Berniespeech3 import training_doc3
-
 
 class MarkovChain:
+    """
+    generative code from other doc
+    """
     def __init__(self):
         self.lookup_dict = defaultdict(list)
         self._seeded = False
@@ -142,6 +144,15 @@ class MarkovChain:
         return " ".join(output)
 
 
+# Test code below this line
+
+
+tweet_trained = MarkovChain()
+tweet_trained.add_document("@BernieSanders.txt")
+generated_text = tweet_trained.generate_text()
+api.update_status(generated_text)
+
+"""
 my_markov = MarkovChain()
 my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
@@ -152,7 +163,7 @@ while True:
     generated_text = my_markov.generate_text()
     api.update_status(generated_text)
     time.sleep(15)
-
+"""
 # user = api.get_user('BernieSanders')
 # public_tweets = api.user_timeline('BernieSanders')
 # for tweet in public_tweets:
