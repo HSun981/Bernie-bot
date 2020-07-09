@@ -7,8 +7,6 @@ import config
 import time
 import re
 import random
-import nltk
-nltk.download('punkt')
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
 
@@ -68,6 +66,11 @@ def searchApiTweet(keyword, count):
     return tweet
 
 def praseTweet(original):
+    """
+    Take out the http part of a tweet list. Adapted from online.
+    :param original: the original
+    :return: prased tweet with no http part.
+    """
     prased = []
     for status in original:
         parsed.append(status.full_text)
@@ -78,44 +81,62 @@ def praseTweet(original):
     return prased
 
 
-def searchUserTweet(userName, keyword):
+def searchUserTweet(userName, keyword, num_tweets):
     """
-    Search for a number of (PAST_TWEET_NUM) past tweets about a specific key word from a user (
+    Search for a number of past tweets about a specific key word from a user (
     and store in a file).
 
     @param userName: the user name of the target account
     @param keyword: the keyword to be included in every tweet
+    @param num_tweets: the number of tweets to get
     @return: a list of tweets on this matter
     """
     tweets = []
+    count = 0
     for status in tweepy.Cursor(api.user_timeline, screen_name=userName,
                                 tweet_mode="extended").items():
         if not status.retweeted:
-            if keyword.lower() in status.full_text:
-                with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
-                    f.write(status.full_text + "\n\n")
+            if keyword.lower() in status.full_text.lower():
+                # The commented out part is for generating a file to both debug and take record,
+                # un-comment it as you need
+
+                # with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
+                #     f.write(status.full_text + "\n\n")
                 tweets.append(status)
+                count += 1
+        if count >= num_tweets:
+            break
 
     return tweets
 
 
-def getRandomPastSpeech(userName, keyword):
+def getRandomPastSpeech(userName, keyword, num_tweets = 30):
     """
     Get a random past speech on a topic. Need to be tested next time. --Heng
     @param userName: the user name of the target account
     @param keyword: the keyword to be included in the tweet of interest.
     @return: the random speech on a topic or a message indicating not found.
     """
-    pool = searchUserTweet(userName, keyword)  # might use a search past 100 User Tweet function
+    pool = searchUserTweet(userName, keyword, num_tweets)
     if len(pool) != 0:
-        message = pool[random.randint(0, len(pool))]
+        message = pool[random.randint(0, len(pool))].full_text
     else:
         message = "Huh, Bernie has never ever mentioned " + keyword + ". Didn't know about that."
 
     return message
 
+def findKeyword(message, keyword_bank):
+    """
+    find the keyword in a message
+    :param message:
+    :param keyword_bank:
+    :return: the index of list of keywords in keyword bank
+    """
 
-print(searchUserTweet(BERNIE_SCREEN_NAME, 'health'))
+    return index
+
+
+print(getRandomPastSpeech(BERNIE_SCREEN_NAME, 'health'))
 
 '''
 
