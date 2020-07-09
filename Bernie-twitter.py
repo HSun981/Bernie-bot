@@ -5,6 +5,10 @@ import random
 import tweepy
 import config
 import time
+import re
+import random
+import nltk
+nltk.download('punkt')
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
 
@@ -107,10 +111,6 @@ print(searchUserTweet(BERNIE_SCREEN_NAME, 'health'))
 '''
 
 #generative code from other doc
-import re
-import random
-import nltk
-nltk.download('punkt')
 
 from nltk.tokenize import word_tokenize
 from collections import defaultdict, deque
