@@ -39,6 +39,7 @@ def searchApiTweet(keyword, count):
     """
     Modified based on https://stackoverflow.com/questions/49098726/extract-tweets-with-some
     -special-keywords-from-twitter-using-tweepy-in-python
+    not tested yet
 
     :param keyword:
     :param count:
@@ -62,6 +63,16 @@ def searchApiTweet(keyword, count):
             target.write(line + "\n")
     return tweet
 
+def praseTweet(original):
+    prased = []
+    for status in original:
+        parsed.append(status.full_text)
+        if "http" not in tweet.text:
+            line = re.sub("[^A-Za-z]", " ", tweet.text)
+            target.write(line + "\n")
+
+    return prased
+
 
 def searchUserTweet(userName, keyword):
     """
@@ -72,13 +83,11 @@ def searchUserTweet(userName, keyword):
     @param keyword: the keyword to be included in every tweet
     @return: a list of tweets on this matter
     """
-
-# This works on https://github.com/tweepy/tweepy/issues/974 but not on my laptop. Can anyone try
-    # this for me?
+    tweets = []
     for status in tweepy.Cursor(api.user_timeline, screen_name=userName,
                                 tweet_mode="extended").items():
         if not status.retweeted:
-            if keyword in status.extended_tweet['full_text']:
+            if keyword.lower() in status.full_text:
                 with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
                     f.write(status.full_text + "\n\n")
                 tweets.append(status)
