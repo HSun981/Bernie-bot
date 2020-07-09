@@ -7,7 +7,6 @@ import config
 import time
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
-PAST_TWEET_NUM = 50  # The number of twitter that we search thru
 
 # Api set up: this should go in main if we have one, or make it global constant? --Heng
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
@@ -36,25 +35,53 @@ def getUserTweet(userName):
         with open(userName + '.txt', 'a+') as f:
             f.write(status.full_text)
 
+def searchApiTweet(keyword, count):
+    """
+    Modified based on https://stackoverflow.com/questions/49098726/extract-tweets-with-some
+    -special-keywords-from-twitter-using-tweepy-in-python
+
+    :param keyword:
+    :param count:
+    :return:
+    """
+    # empty list to store parsed tweets
+    tweets = []
+    target = io.open("mytweets.txt", 'w', encoding='utf-8')
+    # call twitter api to fetch tweets
+    fetched_tweets = api.search(keyword, count=count)
+    # parsing tweets one by one
+    print(len(fetched_tweets))
+
+    for tweet in fetched_tweets:
+        # empty dictionary to store required params of a tweet
+        parsed_tweet = {}
+        # saving text of tweet
+        parsed_tweet['text'] = tweet.text
+        if "http" not in tweet.text:
+            line = re.sub("[^A-Za-z]", " ", tweet.text)
+            target.write(line + "\n")
+    return tweet
+
 
 def searchUserTweet(userName, keyword):
     """
     Search for a number of (PAST_TWEET_NUM) past tweets about a specific key word from a user (
     and store in a file).
+
     @param userName: the user name of the target account
     @param keyword: the keyword to be included in every tweet
     @return: a list of tweets on this matter
     """
-    tweets = []
-    # Next time: fix this with JSON?
-    # This can be made easier with Tweepy's own search commands.
-    # Also next time: fix upper/ lower case problems.
+
+# This works on https://github.com/tweepy/tweepy/issues/974 but not on my laptop. Can anyone try
+    # this for me?
     for status in tweepy.Cursor(api.user_timeline, screen_name=userName,
                                 tweet_mode="extended").items():
-        if keyword in str(status):  # str is not working. try JSON next time
-            with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
-                f.write(status.full_text + "\n\n")
-            tweets.append(status)
+        if not status.retweeted:
+            if keyword in status.extended_tweet['full_text']:
+                with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
+                    f.write(status.full_text + "\n\n")
+                tweets.append(status)
 
     return tweets
 
@@ -73,6 +100,11 @@ def getRandomPastSpeech(userName, keyword):
         message = "Huh, Bernie has never ever mentioned " + keyword + ". Didn't know about that."
 
     return message
+
+
+print(searchUserTweet(BERNIE_SCREEN_NAME, 'health'))
+
+'''
 
 #generative code from other doc
 import re
@@ -142,6 +174,8 @@ class MarkovChain:
         return " ".join(output)
 
 
+
+
 my_markov = MarkovChain()
 my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
@@ -163,3 +197,14 @@ while True:
 # getUserTweet(BERNIE_SCREEN_NAME)
 # tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
 # print("Testrun Over")
+
+
+# Test creating a Markov from twitter
+with open('Bernie-twitter.py', 'r') as file:
+    content = file.read().replace('\n', '')
+tweet_markov = MarkovChain()
+tweet_markov.add_document(content)
+generated_text = my_markov.generate_text()
+api.update_status(generated_text)
+
+'''
