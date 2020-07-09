@@ -165,9 +165,9 @@ while True:
 # public_tweets = api.user_timeline('BernieSanders')
 # for tweet in public_tweets:
 # print(tweet.text)
-#print("Testrun Start")
+# print("Testrun Start")
 # api.update_status(message)
 # getUser()
 # getUserTweet(BERNIE_SCREEN_NAME)
-#tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
-#print("Testrun Over")
+# tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
+# print("Testrun Over")
