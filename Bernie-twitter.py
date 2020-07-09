@@ -87,9 +87,6 @@ def getRandomPastSpeech(userName, keyword):
 
 
 class MarkovChain:
-    """
-    generative code from other doc
-    """
     def __init__(self):
         self.lookup_dict = defaultdict(list)
         self._seeded = False
