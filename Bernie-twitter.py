@@ -132,19 +132,20 @@ def findKeyword(message):
     """
     find the keyword in a message
     :param message:
-    :return: the first set of keywords in keyword bank that is mentioned
+    :return: the first set of keywords in keyword bank that is mentioned; returns an empty set if no
+     existing set matches
     """
     for category in Keyword_Bank.catalog:
         for word in category:
             if word in message:
                 return category
-
+    return {}
 
 
 
 #print(getRandomPastSpeech(BERNIE_SCREEN_NAME, 'SyBBURE'))
 
-#print(findKeyword('close the schools in the us'))
+print(findKeyword('lala no keywords'))
 
 '''
 
