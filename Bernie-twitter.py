@@ -7,6 +7,7 @@ import config
 import time
 import re
 import random
+import Keyword_Bank
 
 BERNIE_SCREEN_NAME = '@BernieSanders'
 
@@ -36,6 +37,7 @@ def getUserTweet(userName):
                                 tweet_mode="extended").items():
         with open(userName + '.txt', 'a+') as f:
             f.write(status.full_text)
+
 
 def searchApiTweet(keyword, count):
     """
@@ -121,22 +123,28 @@ def getRandomPastSpeech(userName, keyword, num_tweets = 30):
     if len(pool) != 0:
         message = pool[random.randint(0, len(pool))].full_text
     else:
-        message = "Huh, Bernie has never ever mentioned " + keyword + ". Didn't know about that."
+        message = "Huh, Bernie has never mentioned " + keyword + ". Didn't know about that."
 
     return message
 
-def findKeyword(message, keyword_bank):
+
+def findKeyword(message):
     """
     find the keyword in a message
     :param message:
-    :param keyword_bank:
-    :return: the index of list of keywords in keyword bank
+    :return: the first set of keywords in keyword bank that is mentioned
     """
+    for category in Keyword_Bank.catalog:
+        for word in category:
+            if word in message:
+                return category
 
-    return index
 
 
-print(getRandomPastSpeech(BERNIE_SCREEN_NAME, 'health'))
+
+#print(getRandomPastSpeech(BERNIE_SCREEN_NAME, 'SyBBURE'))
+
+#print(findKeyword('close the schools in the us'))
 
 '''
 
