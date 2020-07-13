@@ -1,24 +1,37 @@
 # TO CODE
-# make medicare for all tweets (5-10)
+#key
+# 1 = user response to original tweet, 2 = bot response to users response, 3 = user response to bot, 4 = bot response
+
+# medicare for all tweets (5-10)
 tweet_pharma = "The giant pharmaceutical and health insurance lobbies have spent billions of dollars over the past decades " \
-"to ensure that their profits come before the health of the American people. We must defeat them, together. That means: " \
-"Joining every other major country on Earth and guaranteeing health care to all people as a right, not a privilege, " \
-"through a Medicare-for-all, single-payer program."
+                "to ensure that their profits come before the health of the American people. We must defeat them, together. That means: " \
+                "Joining every other major country on Earth and guaranteeing health care to all people as a right, not a privilege, " \
+                "through a Medicare-for-all, single-payer program."
 
-user_response_example = "How do we defeat the giant pharmaceutical companies?"
-user_response_example_2 = "What can we do to defeat them?"
-user_response_example_3 = "How much influence do they have?"
-user_response_example_4 = "What are the effects of having a single-payer program?"
+tweet_human_right = "The disgraceful reality of the U.S healthcare system is that Americans in the richest country in the " \
+                    "world must consider their financial situation before attempting to speak to a professional about their " \
+                    "poor health. Many times, cost outweighs the health concerns. Something is fundamentally wrong with " \
+                    "the statement that \"Americans cannot afford to get sick.\" Health care must be deemed a human right!"
 
-bot_response = "We need to cut the $100 billion profit that health insurance companies take away every year and spend " \
+human_1_response_example = "What would you say to those who consider healthcare to be a commodity or luxury?"
+human_1_response_example_2 = "How do we ensure healthcare becomes a right?"
+human_1_response_example_3 = "Wont healthcare for everyone lower the quality?"
+
+
+pharma_1_response_example = "How do we defeat the giant pharmaceutical companies?"
+pharma_1_response_example_2 = "What can we do to defeat them?"
+pharma_1_response_example_3 = "How much influence do they have?"
+pharma_1_response_example_4 = "What are the effects of having a single-payer program?"
+
+pharma_2_response = "We need to cut the $100 billion profit that health insurance companies take away every year and spend " \
                "on lobbying congress to appeal to their interests."
-bot_response_2 = "The leading lobbyist force in Washington is Health care industry. Both hospitals and the pharmaceutical " \
+pharma_2_response_2 = "The leading lobbyist force in Washington is Health care industry. Both hospitals and the pharmaceutical " \
                  "industry both contribute to this lobbying force."
 
 
-user_response_level_2_example = "What legislation will cut this profit?"
+pharma_3_response_example = "What legislation will cut this profit?"
 
-bot_response_level_2_example = "The Medicare Drug Price Negotiation Act, the Affordable and Safe Prescription " \
+pharma_4_example = "The Medicare Drug Price Negotiation Act, the Affordable and Safe Prescription " \
                                "Drug importation Act, and the Prescription Drug Price Relief Act are three examples " \
                                "of legislation that I am working on to lower the prices of prescription drugs." \
 
@@ -26,23 +39,21 @@ bot_response_level_2_example = "The Medicare Drug Price Negotiation Act, the Aff
 # Evaluate response strings
 # SEARCH FOR KEYWORDS
 # determine subject of responses
-def response_1(user_response):
-    user_response.lower()
-    if user_response.__contains__("defeat"):
-        return bot_response
-    if user_response.__contains__("influence"):
-        return bot_response_2
+def bot_response(user_response_1):
+    user_response_1.lower()
+    if user_response_1.__contains__("defeat"):
+        return pharma_2_response
+    if user_response_1.__contains__("influence"):
+        return pharma_2_response_2
 
 # create responses to responses (n=4)
 
-def response_2(user_response_2):
-    user_response_2.lower()
-    if user_response_2.__contains__("legislation"):
-        return bot_response_level_2_example
+def bot_response_2(user_response_3):
+    user_response_3.lower()
+    if user_response_3.__contains__("legislation"):
+        return pharma_4_example
 
 
-
-
-print(response_1(user_response_example_2))
-print(response_2(user_response_level_2_example))
+print(bot_response(pharma_1_response_example_2))
+print(bot_response_2(pharma_3_response_example))
 # loops to how many levels?
