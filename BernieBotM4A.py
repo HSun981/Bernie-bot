@@ -17,6 +17,16 @@ human_1_response_example = "What would you say to those who consider healthcare 
 human_1_response_example_2 = "How do we ensure healthcare becomes a right?"
 human_1_response_example_3 = "Wont healthcare for everyone lower the quality?"
 
+human_2_response = "I understand that the highest quality of care simply cannot be provided to every citizen, but is " \
+                   "great care for the rich minority that can afford it worth minimal care for majority that cannot?"
+human_2_response_2 = "We ensure healthcare as a human right by effectively ending the private health insurance market."
+human_2_response_3 = "By sacrificing some quality, we can maximize universality and cost effectiveness while also " \
+                     "decreasing the complexity of the system. The benefits of Medicare for all far outweigh the costs."
+
+human_3_response_example = "Should the wealthy be able to access the highest quality healthcare if they can afford it?"
+human_3_response_example_2 = "What are the effects of ending private health insurance?"
+
+human_4_response = ""
 
 pharma_1_response_example = "How do we defeat the giant pharmaceutical companies?"
 pharma_1_response_example_2 = "What can we do to defeat them?"
@@ -32,8 +42,9 @@ pharma_2_response_2 = "The leading lobbyist force in Washington is Health care i
 pharma_3_response_example = "What legislation will cut this profit?"
 
 pharma_4_example = "The Medicare Drug Price Negotiation Act, the Affordable and Safe Prescription " \
-                               "Drug importation Act, and the Prescription Drug Price Relief Act are three examples " \
-                               "of legislation that I am working on to lower the prices of prescription drugs." \
+                   "Drug importation Act, and the Prescription Drug Price Relief Act are three examples " \
+                   "of legislation that I am working on to lower the prices of prescription drugs." \
+
 
 
 # Evaluate response strings
