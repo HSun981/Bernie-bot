@@ -114,7 +114,8 @@ def searchUserTweet(userName, keyword, num_tweets):
 
 def getRandomPastSpeech(userName, keyword, num_tweets = 30):
     """
-    Get a random past speech on a topic. Need to be tested next time. --Heng
+    Get a random past speech on a topic. Being updated to search for a set of keywords. -Heng
+
     @param userName: the user name of the target account
     @param keyword: the keyword to be included in the tweet of interest.
     @return: the random speech on a topic or a message indicating not found.
