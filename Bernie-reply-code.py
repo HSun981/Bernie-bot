@@ -29,21 +29,21 @@ print (user.name)
     #follower.follow()
    # print ("Followed everyone that is following " + user.name)
 
-def mainFunction():
-    search = "bernieee"
-    numberOfTweets = 20
-    tweetId = tweet.user.idusername = tweet.user.screen_name
-    phrase = "healthcare for all and eat the rich"
-    for tweet in tweepy.Cursor(api.search, search).items(numberOfTweets):
-        try:
-            tweetId = tweet.user.id
-            username = tweet.user.screen_name
-            api.update_status("@" + username + " " + phrase, in_reply_to_status_id =tweetId)
-            print("Replied with " + phrase)
-        except tweepy.TweepError as e:\
-                print(e.reason)
-        except StopIteration:
-            break
+#def mainFunction():
+#    search = "bernieee"
+#    numberOfTweets = 20
+#    tweetId = tweet.user.idusername = tweet.user.screen_name
+#    phrase = "healthcare for all and eat the rich"
+#    for tweet in tweepy.Cursor(api.search, search).items(numberOfTweets):
+#        try:
+#            tweetId = tweet.user.id
+#            username = tweet.user.screen_name
+#            api.update_status("@" + username + " " + phrase, in_reply_to_status_id =tweetId)
+#            print("Replied with " + phrase)
+#        except tweepy.TweepError as e:\
+#                print(e.reason)
+#        except StopIteration:
+#            break
 
 
 def findKeyword(message):
@@ -60,6 +60,7 @@ def findKeyword(message):
                 return category
     return {}
 
+#functions to store last seen tweet id so it doesn't try to reply to the same tweet twice
 FILE_NAME = 'last_seen_id1'
 def retrieve_last_seen_id(file_name):
     f_read = open(file_name, 'r')
@@ -74,7 +75,7 @@ def store_last_seen_id(last_seen_id, file_name):
     f_write.close()
     return
 
-
+#gets all tweets that @ the bernie bot, searches the keyword bank agaisnt them, and replies based on keyword category
 def reply_to_tweets():
     last_seen_id = retrieve_last_seen_id(FILE_NAME)
     twt_healthcare = api.mentions_timeline(last_seen_id)
@@ -97,7 +98,7 @@ def reply_to_tweets():
             sn = s.user.screen_name
             m = '@%s This is my political campaign.' % (sn)
             s = api.update_status(m, s.id)
-
+#iterates through the search for keyword and reply process every 15 seconds
 while True:
     reply_to_tweets()
     time.sleep(15)
