@@ -25,27 +25,6 @@ print (user.name)
 
 
 
-#for follower in tweepy.Cursor(api.followers).items():
-    #follower.follow()
-   # print ("Followed everyone that is following " + user.name)
-
-def mainFunction():
-    search = "bernieee"
-    numberOfTweets = 20
-    tweetId = tweet.user.idusername = tweet.user.screen_name
-    phrase = "healthcare for all and eat the rich"
-    for tweet in tweepy.Cursor(api.search, search).items(numberOfTweets):
-        try:
-            tweetId = tweet.user.id
-            username = tweet.user.screen_name
-            api.update_status("@" + username + " " + phrase, in_reply_to_status_id =tweetId)
-            print("Replied with " + phrase)
-        except tweepy.TweepError as e:\
-                print(e.reason)
-        except StopIteration:
-            break
-
-
 def findKeyword(message):
     """
     find the keyword in a message
