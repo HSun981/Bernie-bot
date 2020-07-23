@@ -224,6 +224,24 @@ def reply_to_tweets(last_seen_id):
     return new_last_id
 
 
+def delete_tweets_about(keyword):
+    """
+    A convenient function to delete all tweets that the bot produced having a certain keyword.
+    :param keyword: the keyword with which the tweet shall be deleted
+    :return: the number of tweets deleted
+    """
+    num_deleted = 0
+    for tweet in api.home_timeline():
+        if keyword in tweet.text:
+            api.destroy_status(tweet.id)
+            num_deleted = num_deleted + 1
+    for tweet in api.mentions_timeline():
+        if keyword in tweet.text:
+            api.destroy_status(tweet.id)
+            num_deleted = num_deleted + 1
+
+
+
 # The real main function
 # Get the last seen id from last run
 last_seen_id = retrieve_last_seen_id()
