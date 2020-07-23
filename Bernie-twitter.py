@@ -83,13 +83,13 @@ def praseTweet(original):
     return prased
 
 
-def searchUserTweet(userName, keyword, num_tweets):
+def searchUserTweet(userName, category, num_tweets):
     """
     Search for a number of past tweets about a specific key word from a user (
     and store in a file).
 
     @param userName: the user name of the target account
-    @param keyword: the keyword to be included in every tweet
+    @param category: the set of keyword to be included in every tweet
     @param num_tweets: the number of tweets to get
     @return: a list of tweets on this matter
     """
@@ -98,33 +98,36 @@ def searchUserTweet(userName, keyword, num_tweets):
     for status in tweepy.Cursor(api.user_timeline, screen_name=userName,
                                 tweet_mode="extended").items():
         if not status.retweeted:
-            if keyword.lower() in status.full_text.lower():
-                # The commented out part is for generating a file to both debug and take record,
-                # un-comment it as you need
+            for keyword in category:
+                if keyword.lower() in status.full_text.lower():
+                    # The commented out part is for generating a file to debug and take record,
+                    # un-comment it as you need
+                    # Have not debugged after switching from single keyword to category
 
-                # with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
-                #     f.write(status.full_text + "\n\n")
-                tweets.append(status)
-                count += 1
+                    # with open(userName + "_on_" + keyword + '.txt', 'a+') as f:
+                    #     f.write(status.full_text + "\n\n")
+                    tweets.append(status)
+                    count += 1
         if count >= num_tweets:
             break
 
     return tweets
 
 
-def getRandomPastSpeech(userName, keyword, num_tweets = 30):
+def getRandomPastSpeech(userName, category, num_tweets = 30):
     """
     Get a random past speech on a topic. Being updated to search for a set of keywords. -Heng
 
     @param userName: the user name of the target account
-    @param keyword: the keyword to be included in the tweet of interest.
+    @param category: the set of keywords to be included in the tweet of interest.
     @return: the random speech on a topic or a message indicating not found.
     """
-    pool = searchUserTweet(userName, keyword, num_tweets)
+    pool = searchUserTweet(userName, category, num_tweets)
     if len(pool) != 0:
         message = pool[random.randint(0, len(pool))].full_text
     else:
-        message = "Huh, Bernie has never mentioned " + keyword + ". Didn't know about that."
+        message = "Huh, Bernie has never mentioned anything about " + random.sample(category, 1) \
+                  + ". Didn't know that."
 
     return message
 
@@ -138,15 +141,19 @@ def findKeyword(message):
     """
     for category in Keyword_Bank.catalog:
         for word in category:
-            if word in message:
+            if word.toLower() in message.toLower():
                 return category
     return {}
 
 
 
-#print(getRandomPastSpeech(BERNIE_SCREEN_NAME, 'SyBBURE'))
 
-print(findKeyword('lala no keywords'))
+
+
+
+print(getRandomPastSpeech(BERNIE_SCREEN_NAME, Keyword_Bank.covid_19))
+
+#print(findKeyword('lala no keywords'))
 
 '''
 
