@@ -9,7 +9,10 @@ import re
 import random
 import Keyword_Bank
 
-BERNIE_SCREEN_NAME = '@BernieSanders'
+BERNIE_SCREEN_NAME = '@BernieSanders'       # Bernie's twitter screen name
+FILE_FOR_LAST_ID = 'last_seen_id1'     # last tweet id that we processed
+REPLY_INTERVAL = 60                     # the interval to reply
+TWEET_LIMIT = 280                       # the number of characters allowed in a tweet
 
 # Api set up: this should go in main if we have one, or make it global constant? --Heng
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
@@ -142,7 +145,7 @@ def findKeyword(message):
     """
     for category in Keyword_Bank.catalog:
         for word in category:
-            if word.toLower() in message.toLower():
+            if word.lower() in message.lower():
                 return category
     return {}
 
@@ -157,7 +160,8 @@ def GenerateReply(tweet):
     category = findKeyword(tweet.full_text)
 
     # General element in all replies
-    message = "Hello " + tweet.user + "!\n"
+    message = "@%s " % tweet.user.screen_name
+    message = message + "Hello " + tweet.user.name + "!\n"
 
     # No Keyword Found
     if category == {}:
@@ -173,12 +177,59 @@ def GenerateReply(tweet):
         message = message + "As Bernie once said: \n"
         message = message + getRandomPastSpeech(BERNIE_SCREEN_NAME, category)
 
-    return message
+    return message[:TWEET_LIMIT]
 
 
-# print(getRandomPastSpeech(BERNIE_SCREEN_NAME, Keyword_Bank.covid_19))
+def retrieve_last_seen_id():
+    """
+    to retrieve last seen tweet id so it doesn't try to reply to the same tweet twice
+    This function is adapted from Bernie-reply-code.
+    :return: the id of last twitter processed
+    """
+    f_read = open(FILE_FOR_LAST_ID, 'r')
+    last_seen_id = int(f_read.read().strip())
+    f_read.close()
+    return last_seen_id
 
-# print(findKeyword('lala no keywords'))
+
+def store_last_seen_id(last_seen_id):
+    """
+    to store last seen tweet id so it doesn't try to reply to the same tweet twice
+    This function is adapted from Bernie-reply-code.
+    """
+    f_write = open(FILE_FOR_LAST_ID, 'w')
+    f_write.write(str(last_seen_id))
+    f_write.close()
+
+
+def reply_to_tweets(last_seen_id):
+    """
+    gets all tweets that @ the bernie bot, searches the keyword bank agaisnt them, and replies
+    based on keyword category
+    This function is adapted from Bernie-reply-code.
+    """
+    twt_to_reply = api.mentions_timeline(last_seen_id, tweet_mode='extended')
+    new_last_id = -1     # no change happened
+    for mention in reversed(twt_to_reply):
+        print(str(mention.id) + ' - ' + mention.full_text, flush=True)
+        api.update_status(GenerateReply(mention), mention.id)
+        new_last_id = mention.id
+    return new_last_id
+
+
+# The real main function
+# Get the last seen id from last run
+last_seen_id = retrieve_last_seen_id()
+
+# iterates through the search for keyword and reply process every REPLY_INTERVAL of seconds
+while True:
+    new_id = reply_to_tweets(last_seen_id)
+    if new_id != -1:        #if is change where at least a new tweet was replied
+        last_seen_id = new_id
+        store_last_seen_id(last_seen_id)
+    time.sleep(REPLY_INTERVAL)
+
+
 
 '''
 
