@@ -67,6 +67,7 @@ def searchApiTweet(keyword, count):
             target.write(line + "\n")
     return tweet
 
+
 def praseTweet(original):
     """
     Take out the http part of a tweet list. Adapted from online.
@@ -114,7 +115,7 @@ def searchUserTweet(userName, category, num_tweets):
     return tweets
 
 
-def getRandomPastSpeech(userName, category, num_tweets = 30):
+def getRandomPastSpeech(userName, category, num_tweets=30):
     """
     Get a random past speech on a topic. Being updated to search for a set of keywords. -Heng
 
@@ -146,14 +147,38 @@ def findKeyword(message):
     return {}
 
 
+def GenerateReply(tweet):
+    """
+    Generate a reply to a twitter
+    :param tweet: The twitter to reply to, must be a tweet object
+    :return: The message to reply with
+    """
+    # Will need to throw an exception here if tweet is not a tweet object
+    category = findKeyword(tweet.full_text)
+
+    # General element in all replies
+    message = "Hello " + tweet.user + "!\n"
+
+    # No Keyword Found
+    if category == {}:
+        message = message + "I didn't understand what you were trying to say."
+
+    # Found Jared's Keyword
+    elif category == Keyword_Bank.medicare_for_all:
+        message = message  # call Jared's function here to generate new reply; might need to also
+        # note down the thread
+
+    # Found any other keywords
+    else:
+        message = message + "As Bernie once said: \n"
+        message = message + getRandomPastSpeech(BERNIE_SCREEN_NAME, category)
+
+    return message
 
 
+# print(getRandomPastSpeech(BERNIE_SCREEN_NAME, Keyword_Bank.covid_19))
 
-
-
-print(getRandomPastSpeech(BERNIE_SCREEN_NAME, Keyword_Bank.covid_19))
-
-#print(findKeyword('lala no keywords'))
+# print(findKeyword('lala no keywords'))
 
 '''
 
