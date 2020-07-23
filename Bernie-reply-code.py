@@ -1,5 +1,7 @@
 import tweepy
 import time
+import config
+
 
 covid_19 = {'COVID-19', 'COVID', 'coronavirus', 'corona virus', 'corona'}
 
@@ -13,12 +15,9 @@ united_states = {'US', 'America', 'USA'}
 
 catalog = [covid_19, medicine, politics, education, united_states]
 
-consumer_key = "XXX"
-consumer_secret = "XXX"
-access_token = "XXX"
-access_token_secret = "XXX"
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+
+auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
+auth.set_access_token(config.access_token, config.access_token_secret)
 api = tweepy.API(auth)
 user = api.me()
 print (user.name)
