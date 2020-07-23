@@ -169,8 +169,15 @@ def GenerateReply(tweet):
 
     # Found Jared's Keyword
     elif category == Keyword_Bank.medicare_for_all:
-        message = message  # call Jared's function here to generate new reply; might need to also
-        # note down the thread
+        message = message + "Jared is going to add something here." # call Jared's function here to
+        # generate new reply; might need to also track the thread
+
+    # Found Keyword for SyBBURE presentation demo
+    elif category == Keyword_Bank.sybbure:
+        if 'answer' in tweet.full_text:       # answer keyword to a random riddle
+            message = message + "That is correct, congrats!\nTeam Bernie bot loves you!"
+        else:
+            message = message + "Wrong answer. Try again!"
 
     # Found any other keywords
     else:
