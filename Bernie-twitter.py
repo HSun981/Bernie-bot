@@ -9,6 +9,12 @@ import re
 import random
 import Keyword_Bank
 
+from nltk.tokenize import word_tokenize
+from collections import defaultdict, deque
+from Berniespeech1 import training_doc1
+from Berniespeech2 import training_doc2
+from Berniespeech3 import training_doc3
+
 BERNIE_SCREEN_NAME = '@BernieSanders'       # Bernie's twitter screen name
 FILE_FOR_LAST_ID = 'last_seen_id1'     # last tweet id that we processed
 REPLY_INTERVAL = 60                     # the interval to reply
@@ -246,25 +252,7 @@ def delete_tweets_about(keyword):
 # Get the last seen id from last run
 last_seen_id = retrieve_last_seen_id()
 
-# iterates through the search for keyword and reply process every REPLY_INTERVAL of seconds
-while True:
-    new_id = reply_to_tweets(last_seen_id)
-    if new_id != -1:        #if is change where at least a new tweet was replied
-        last_seen_id = new_id
-        store_last_seen_id(last_seen_id)
-    time.sleep(REPLY_INTERVAL)
-
-
-
-'''
-
-#generative code from other doc
-
-from nltk.tokenize import word_tokenize
-from collections import defaultdict, deque
-from Berniespeech1 import training_doc1
-from Berniespeech2 import training_doc2
-from Berniespeech3 import training_doc3
+#generative portion of code
 
 
 class MarkovChain:
@@ -329,11 +317,19 @@ my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
 my_markov.add_document(training_doc3)
 
-#setting up time
+# iterates through the search for keyword and reply process every REPLY_INTERVAL of seconds
 while True:
+    new_id = reply_to_tweets(last_seen_id)
+    if new_id != -1:        #if is change where at least a new tweet was replied
+        last_seen_id = new_id
+        store_last_seen_id(last_seen_id)
     generated_text = my_markov.generate_text()
     api.update_status(generated_text)
-    time.sleep(15)
+    time.sleep(REPLY_INTERVAL)
+
+
+
+
 
 # user = api.get_user('BernieSanders')
 # public_tweets = api.user_timeline('BernieSanders')
@@ -355,4 +351,3 @@ tweet_markov.add_document(content)
 generated_text = my_markov.generate_text()
 api.update_status(generated_text)
 
-'''
