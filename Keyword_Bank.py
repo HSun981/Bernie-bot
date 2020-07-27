@@ -6,7 +6,7 @@ like "butter" in "butterfly"
 '''
 
 # Jared's keyword category, prioritized
-medicare_for_all = {'medicare for all'}
+medicare_for_all = {'medicare for all', 'M4A'}
 
 # For the demonstration in presentation
 sybbure = {'sybbure'}
