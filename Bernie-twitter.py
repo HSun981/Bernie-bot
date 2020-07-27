@@ -249,13 +249,28 @@ def delete_tweets_about(keyword):
 
 def medicare_for_all(tweet):
     '''
-    (explain your function here)
+    determines tweet subject and replies with relevant response
     :param tweet: the user tweet that you reply to
     :return: the message to be included in the reply tweet
     '''
     message = ""
+    subject = ""
+response = tweet.full_text.lower()
 
-    return message
+for words in pharma_words:
+    if response.__contains__(words):
+        if response.__contains__("influence") or response.__contains__("power"):
+            message = pharma_response
+        elif response.__contains__("single-payer"):
+            message = pharma_response_2
+        elif response.__contains__("fight") or response.__contains__("defeat"):
+            message = pharma_response_3
+        elif response.__contains__("private") or response.__contains__("optional"):
+            message = pharma_response_4
+        else:
+            message = retry_message
+    
+return message
 
 
 # The real main function
