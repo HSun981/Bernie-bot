@@ -1,11 +1,44 @@
-# key
-# 1 = user response to original tweet, 2 = bot response to users response, 3 = user response to bot, 4 = bot response
-
 # medicare for all tweets (5-10)
-tweet_pharma = "The giant pharmaceutical and health insurance lobbies have spent billions of dollars over the past " \
-               "decades to ensure that their profits come before the health of the American people. We must defeat " \
-               "them, together. That means: Joining every other major country on Earth and guaranteeing health care " \
-               "to all people as a right, not a privilege, through a Medicare-for-all, single-payer program."
+tweet_pharma = "The giant pharmaceutical and health insurance lobbies spend billions to ensure that their profits " \
+               "come before the health of the American people. We must defeat them by guaranteeing health care to " \
+               "all people through a Medicare-for-all, single-payer program. @ me with \"M4A\" and I'll reply!"
+
+pharma_reply_example = "What will cut this profit?"
+pharma_reply_example_2 = "Would there be optional privatized care for those who could afford it?"
+pharma_reply_example_3 = "What other countries in the world have single-payer systems?"
+
+pharma_response = "We need to restrict the more than $100 billion profit that health insurance and pharmaceutical " \
+                  "companies take away every year and spend on lobbying congress to appeal to their interests. For " \
+                  "every Congressman and woman, this lobbyist force controls 500 lobbyists."
+
+pharma_response_2 = "A single-payer program would ensure that health care become a human right. Each citizen would " \
+                      "pay into this program and receive total coverage including dental and visual care. Through a " \
+                      "single-payer system, we eliminate administrative costs and financial motives."
+
+pharma_response_3 = "Strengthening antitrust measures against big pharma will decrease their profit. A single-payer " \
+                    "system will also provide the government considerable drug market power to negotiate lower prices."
+
+# "Just north of us, every Canadian citizen is guaranteed healthcare and astonishingly, " \
+# "Canada spends less per capita on healthcare than the United States. It's a problem that " \
+# "diabetic families need to cross to border to get insulin because it is 10x the price here."
+
+pharma_response_4 = "Private insurers will not be able to offer coverage that duplicates benefits covered by " \
+                      "Medicare For All. We all have to buy in and trust the process if we want to ensure healthcare " \
+                      "as a human right!"
+# Evaluate response strings
+# SEARCH FOR KEYWORDS
+# if subject == pharma:
+    response = tweet.full_text.lower()
+    if response.__contains__("influence") or response.__contains__("power"):
+        message = pharma_response
+    elif response.__contains__("single-payer"):
+        message = pharma_response_2
+    elif response.__contains__("fight") or response.__contains__("defeat"):
+        message = pharma_response_3
+    elif response.__contains__("private") or response.__contains__("optional"):
+        message = pharma_response_4
+    else:
+        message = pharma_response_3
 
 tweet_moral = "The disgraceful reality of the U.S healthcare system is that Americans in the richest country in the " \
               "world must consider their financial situation before attempting to speak to a professional about their " \
@@ -29,32 +62,6 @@ tweet_covid = "This global pandemic has exposed the weaknesses in the United Sta
               "prevalent in the U.S than any other country delay care when it is urgently needed. On top of this, " \
               "capacity shortages put the U.S at a further disadvantage when dealing with this pandemic. "
 
-
-# pharmaceutical and insurance companies (pharma)
-
-pharma_1_response_example = "How do we defeat the giant pharmaceutical companies?"
-pharma_1_response_example_2 = "What can we do to defeat them?"
-pharma_1_response_example_3 = "What are the effects of having a single-payer program?"
-
-pharma_2_response = "We need to restrict the more than $100 billion profit that health insurance and pharmaceutical " \
-                    "companies take away every year and spend on lobbying congress to appeal to their interests. Both " \
-                    "hospitals and the pharmaceutical industry contribute to the leading lobbyist force in Washington."
-pharma_2_response_2 = "A single-payer program would ensure that health care become a human right. Each citizen would " \
-                      "pay into this national health insurance program and receive total coverage including dental and " \
-                      "visual care. Through a single-payer system, we eliminate administrative costs and financial " \
-                      "motives. This would also provide the government considerable drug market power to negotiate" \
-                      "lower prices."
-
-
-pharma_3_response_example = "What legislation will cut this profit?"
-pharma_3_response_example_2 = "Are there any drawbacks to a single-payer system?"
-pharma_3_response_example_3 = "What countries in the world have single-payer systems?"
-pharma_3_response_example_4 = "Would there be optional privatized care for those who could afford it?"
-
-pharma_4_example = "The Medicare Drug Price Negotiation Act, the Affordable and Safe Prescription " \
-                   "Drug importation Act, and the Prescription Drug Price Relief Act are three examples " \
-                   "of legislation that I am working on to lower the prices of prescription drugs." \
-
 moral_1_response_example = "What would you say to those who consider healthcare to be a commodity or luxury?"
 moral_1_response_example_2 = "How do we ensure healthcare becomes a right?"
 moral_1_response_example_3 = "Wont healthcare for everyone lower the quality?"
@@ -70,26 +77,15 @@ moral_3_response_example_2 = "What are the effects of ending private health insu
 
 moral_4_response = ""
 
-
-# Evaluate response strings
-# SEARCH FOR KEYWORDS
-def bot_2_response_pharma(user_response):
-    user_response.lower()
-    if user_response.__contains__("pharmaceutical"):
-        return pharma_2_response
-    if user_response.__contains__("defeat"):
-        return pharma_2_response
-    if user_response.__contains__("single-payer"):
-        return pharma_2_response_2
-    if user_response.__contains__("program"):
-        return pharma_2_response_2
-
-# create responses to responses (n=4)
-
-def bot_4_response_pharma(user_response):
-    user_response.lower()
-    if user_response.__contains__("legislation"):
-        return pharma_4_example
+#
+# # responding to users
+# toReply = "someonesTwitterName" #user to get most recent tweet
+# # api = tweepy.API(auth)
+#
+# #get the most recent tweet from the user
+# tweets = api.user_timeline(screen_name = toReply, count=1)
+#
+# for tweet in tweets:
+#     api.update_status("@" + toReply + " This is what I'm replying with", in_reply_to_status_id = tweet.id)
 
 
-# loops to how many levels?
