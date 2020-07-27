@@ -270,7 +270,7 @@ for words in pharma_words:
         else:
             message = retry_message
     
-return message
+    return message
 
 
 # The real main function
