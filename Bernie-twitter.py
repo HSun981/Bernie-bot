@@ -253,23 +253,23 @@ def medicare_for_all(tweet):
     :param tweet: the user tweet that you reply to
     :return: the message to be included in the reply tweet
     '''
-    message = ""
+   
     subject = ""
     response = tweet.full_text.lower()
 
     for words in BernieBotM4A.pharma_words:
         if response.__contains__(words):
             if response.__contains__("influence") or response.__contains__("power"):
-                message = BernieBotM4A.pharma_response
+                return BernieBotM4A.pharma_response
             elif response.__contains__("single-payer"):
-                message = BernieBotM4A.pharma_response_2
+                return BernieBotM4A.pharma_response_2
             elif response.__contains__("fight") or response.__contains__("defeat"):
-                message = BernieBotM4A.pharma_response_3
+                return BernieBotM4A.pharma_response_3
             elif response.__contains__("private") or response.__contains__("optional"):
-                message = BernieBotM4A.pharma_response_4
+                return BernieBotM4A.pharma_response_4
             else:
-                message = BernieBotM4A.retry_message
-    return message
+                return BernieBotM4A.retry_message
+ 
 
 
 # The real main function
