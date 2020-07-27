@@ -11,21 +11,27 @@ medicare_for_all = {'medicare for all', 'M4A'}
 # For the demonstration in presentation
 sybbure = {'sybbure'}
 
-covid_19 = {'covid-19', 'covid', 'corona'}
+covid_19 = {'covid-19', 'covid', 'corona', 'coronavirus', 'pandemic', 'coronavirus disease', 'SARS-CoV-2'}
 
-medicine = {'medicine', 'health', 'hospital', 'patient', 'health care', 'medical', 'doctor'}
+medicine = {'medicine', 'health', 'hospital', 'patient', 'health care', 'medical', 'doctor', 'medicare', 'medical debt', 'health', 'insurance', 'affordable care act'}
 
-politics = {'politic', 'democratic', 'republic'}
+politics = {'political', 'democratic', 'republic', 'politics', 'political climate'}
 
-education = {'education', 'school', 'university', 'college'}
+education = {'education', 'school', 'university', 'college', 'tuition', 'tuition-free', 'student debt', 'public schools', 'degree', 'low income students', 'profession'}
 
 year_2020 = {'this year', '2020'}
 
-united_states = {'the us', 'america', 'usa'}
+united_states = {'the us', 'america', 'usa', 'united states of america', 'united states'}
+
+taxes = {'greed', 'revenue', 'income', 'wealth', 'tax brackets', 'tax cuts', 'big corporation'}
+
+climate = {'cap-and-trade', 'carbon', 'emissions', 'energy', 'green new deal', 'fossil fuels', 'renewable', 'oil', 'gas', 'coal', 'climate change'}
+
+campaign = {'campaign', 'election', 'presidential race'}
 
 
 
 # When adding a new category, add the category to this list
 # Keyword will be checked in order so beware of the order
 catalog = [medicare_for_all, sybbure, covid_19, medicine, politics, education, year_2020,
-           united_states]
+           united_states, taxes, climate]
