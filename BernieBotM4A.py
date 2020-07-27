@@ -3,7 +3,7 @@ tweet_pharma = "The giant pharmaceutical and health insurance lobbies spend bill
                "come before the health of the American people. We must defeat them by guaranteeing health care to " \
                "all people through a Medicare-for-all, single-payer program. @ me with \"M4A\" and I'll reply!"
 
-pharma_words = ["pharmaceutical", "drug", "lobbyists", "pharma", "big pharma", "companies"]
+pharma_words = ["pharmaceutical", "drug", "lobbyists", "pharma", "big pharma", "companies", "single-payer"]
 
 pharma_reply_example = "What will cut this profit?"
 pharma_reply_example_2 = "Would there be optional privatized care for those who could afford it?"
