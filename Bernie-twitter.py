@@ -176,7 +176,7 @@ def GenerateReply(tweet):
 
     # Found Jared's Keyword
     elif category == Keyword_Bank.medicare_for_all:
-        message = medicare_for_all(tweet) # call Jared's function here to
+        message = "@%s " % tweet.user.screen_name + medicare_for_all(tweet) # call Jared's function here to
         # generate new reply; might need to also track the thread
 
     # Found Keyword for SyBBURE presentation demo
