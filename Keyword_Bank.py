@@ -34,4 +34,4 @@ campaign = {'campaign', 'election', 'presidential race'}
 # When adding a new category, add the category to this list
 # Keyword will be checked in order so beware of the order
 catalog = [medicare_for_all, sybbure, covid_19, medicine, politics, education, year_2020,
-           united_states, taxes, climate]
+           united_states, taxes, climate, campaign]
