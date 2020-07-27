@@ -257,18 +257,18 @@ def medicare_for_all(tweet):
     subject = ""
     response = tweet.full_text.lower()
 
-    for words in pharma_words:
+    for words in BernieBotM4A.pharma_words:
         if response.__contains__(words):
             if response.__contains__("influence") or response.__contains__("power"):
-                message = pharma_response
+                message = BernieBotM4A.pharma_response
             elif response.__contains__("single-payer"):
-                message = pharma_response_2
+                message = BernieBotM4A.pharma_response_2
             elif response.__contains__("fight") or response.__contains__("defeat"):
-                message = pharma_response_3
+                message = BernieBotM4A.pharma_response_3
             elif response.__contains__("private") or response.__contains__("optional"):
-                message = pharma_response_4
+                message = BernieBotM4A.pharma_response_4
             else:
-                message = retry_message
+                message = BernieBotM4A.retry_message
     return message
 
 
