@@ -3,6 +3,8 @@ tweet_pharma = "The giant pharmaceutical and health insurance lobbies spend bill
                "come before the health of the American people. We must defeat them by guaranteeing health care to " \
                "all people through a Medicare-for-all, single-payer program. @ me with \"M4A\" and I'll reply!"
 
+pharma_words = ["pharmaceutical", "drug", "lobbyists", "pharma", "big pharma", "companies"]
+
 pharma_reply_example = "What will cut this profit?"
 pharma_reply_example_2 = "Would there be optional privatized care for those who could afford it?"
 pharma_reply_example_3 = "What other countries in the world have single-payer systems?"
@@ -25,20 +27,26 @@ pharma_response_3 = "Strengthening antitrust measures against big pharma will de
 pharma_response_4 = "Private insurers will not be able to offer coverage that duplicates benefits covered by " \
                       "Medicare For All. We all have to buy in and trust the process if we want to ensure healthcare " \
                       "as a human right!"
+
+retry_message = "I didn't understand. Restate your tweet and ask me about Medicare For All!"
+
 # Evaluate response strings
 # SEARCH FOR KEYWORDS
-# if subject == pharma:
-    response = tweet.full_text.lower()
-    if response.__contains__("influence") or response.__contains__("power"):
-        message = pharma_response
-    elif response.__contains__("single-payer"):
-        message = pharma_response_2
-    elif response.__contains__("fight") or response.__contains__("defeat"):
-        message = pharma_response_3
-    elif response.__contains__("private") or response.__contains__("optional"):
-        message = pharma_response_4
-    else:
-        message = pharma_response_3
+# subject = ""
+# response = tweet.full_text.lower()
+#
+# for words in pharma_words:
+#     if response.__contains__(words):
+#         if response.__contains__("influence") or response.__contains__("power"):
+#             message = pharma_response
+#         elif response.__contains__("single-payer"):
+#             message = pharma_response_2
+#         elif response.__contains__("fight") or response.__contains__("defeat"):
+#             message = pharma_response_3
+#         elif response.__contains__("private") or response.__contains__("optional"):
+#             message = pharma_response_4
+#         else:
+#             message = retry_message
 
 tweet_moral = "The disgraceful reality of the U.S healthcare system is that Americans in the richest country in the " \
               "world must consider their financial situation before attempting to speak to a professional about their " \
