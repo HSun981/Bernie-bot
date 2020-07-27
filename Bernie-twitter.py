@@ -175,7 +175,7 @@ def GenerateReply(tweet):
 
     # Found Jared's Keyword
     elif category == Keyword_Bank.medicare_for_all:
-        message = message + "Jared is going to add something here." # call Jared's function here to
+        message = message + medicare_for_all(tweet) # call Jared's function here to
         # generate new reply; might need to also track the thread
 
     # Found Keyword for SyBBURE presentation demo
@@ -191,7 +191,6 @@ def GenerateReply(tweet):
         message = message + getRandomPastSpeech(BERNIE_SCREEN_NAME, category)
 
     return message[:TWEET_LIMIT]
-
 
 def retrieve_last_seen_id():
     """
@@ -246,6 +245,16 @@ def delete_tweets_about(keyword):
             api.destroy_status(tweet.id)
             num_deleted = num_deleted + 1
 
+
+def medicare_for_all(tweet):
+    '''
+    (explain your function here)
+    :param tweet: the user tweet that you reply to
+    :return: the message to be included in the reply tweet
+    '''
+    message = ""
+
+    return message
 
 
 # The real main function
