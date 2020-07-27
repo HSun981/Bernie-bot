@@ -360,3 +360,4 @@ tweet_markov.add_document(content)
 generated_text = my_markov.generate_text()
 api.update_status(generated_text)
 
+# Jared says hi
