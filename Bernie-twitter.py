@@ -10,7 +10,7 @@ import random
 import Keyword_Bank
 import BernieBotM4A
 
-from nltk.tokenize import word_tokenize
+#from nltk.tokenize import word_tokenize
 from collections import defaultdict, deque
 from Berniespeech1 import training_doc1
 from Berniespeech2 import training_doc2
@@ -182,7 +182,7 @@ def GenerateReply(tweet):
 
     # Found Keyword for SyBBURE presentation demo
     elif category == Keyword_Bank.sybbure:
-        if 'nico' in tweet.full_text:  # answer keyword to a random riddle
+        if 'nico' in tweet.full_text.lower():  # answer keyword to a random riddle
             message = message + "That is correct, congrats!\nTeam Bernie bot loves you!"
         else:
             message = message + "Wrong answer. Try again!"
@@ -386,25 +386,29 @@ class MarkovChain:
 # The real main function
 # Get the last seen id from last run
 last_seen_id = retrieve_last_seen_id()
-
+'''
 # train the MarkovChain
 my_markov = MarkovChain()
 my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
 my_markov.add_document(training_doc3)
+'''
 
+timer = 0   # keeps track of the number of iterations for the nltk
 
 # iterates through the search for keyword and reply process every REPLY_INTERVAL of seconds
 while True:
+    if timer > 60:
+    # generated_text = my_markov.generate_text()
+    # api.update_status(generated_text[:TWEET_LIMIT])
+        timer = 0
     new_id = reply_to_tweets(last_seen_id)
     if new_id != -1:  # if is change where at least a new tweet was replied
         last_seen_id = new_id
         store_last_seen_id(last_seen_id)
-    #generated_text = my_markov.generate_text()
-    #api.update_status(generated_text[:TWEET_LIMIT])
     time.sleep(REPLY_INTERVAL)
 
-
+'''
 
 # Test creating a Markov from twitter
 with open('Bernie-twitter.py', 'r') as file:
@@ -413,3 +417,4 @@ tweet_markov = MarkovChain()
 tweet_markov.add_document(content)
 generated_text = my_markov.generate_text()
 api.update_status(generated_text[:TWEET_LIMIT])
+'''
