@@ -182,7 +182,7 @@ def GenerateReply(tweet):
 
     # Found Keyword for SyBBURE presentation demo
     elif category == Keyword_Bank.sybbure:
-        if 'answer' in tweet.full_text:  # answer keyword to a random riddle
+        if 'nico' in tweet.full_text:  # answer keyword to a random riddle
             message = message + "That is correct, congrats!\nTeam Bernie bot loves you!"
         else:
             message = message + "Wrong answer. Try again!"
