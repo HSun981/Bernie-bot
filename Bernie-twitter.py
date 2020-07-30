@@ -257,18 +257,18 @@ def determine_medicare_subject(tweet):
     '''
     response = tweet.full_text.lower()
 
-    for word in BernieBotM4A.system_words:
-        if response.__contains__(word):
-            return "system"
-    for word in BernieBotM4A.covid_words:
-        if response.__contains__(word):
-            return "covid"
-    for word in BernieBotM4A.pharma_words:
-        if response.__contains__(word):
-            return "pharma"
     for word in BernieBotM4A.cost_words:
         if response.__contains__(word):
             return "cost"
+    for word in BernieBotM4A.covid_words:
+        if response.__contains__(word):
+            return "covid"
+    for word in BernieBotM4A.system_words:
+        if response.__contains__(word):
+            return "system"
+    for word in BernieBotM4A.pharma_words:
+        if response.__contains__(word):
+            return "pharma"
     return "moral"
 
 
