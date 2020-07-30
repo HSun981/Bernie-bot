@@ -246,29 +246,78 @@ def delete_tweets_about(keyword):
             api.destroy_status(tweet.id)
             num_deleted = num_deleted + 1
 
+           
+def determine_medicare_subject(tweet):
+    '''
+    determines tweet subject
+    :param tweet: the user tweet that you reply to
+    :return: the subject of medicare that the bot isolates
+    '''
+    response = tweet.full_text.lower()
+
+    for word in BernieBotM4A.system_words:
+        if response.__contains__(word):
+            return "system"
+    for word in BernieBotM4A.covid_words:
+        if response.__contains__(word):
+            return "covid"
+    for word in BernieBotM4A.pharma_words:
+        if response.__contains__(word):
+            return "pharma"
+    for word in BernieBotM4A.cost_words:
+        if response.__contains__(word):
+            return "cost"
+    return "moral"
 
 def medicare_for_all(tweet):
     '''
-    determines tweet subject and replies with relevant response
+    replies with relevant response based on tweet and subject
     :param tweet: the user tweet that you reply to
     :return: the message to be included in the reply tweet
     '''
-   
-    subject = ""
     response = tweet.full_text.lower()
+    subject = determine_medicare_subject(tweet)
+    if subject == "pharma":
+        if response.__contains__("influence") or response.__contains__("power"):
+            return BernieBotM4A.pharma_response
+        elif response.__contains__("fight") or response.__contains__("defeat") or response.__contains__("oppose"):
+            return BernieBotM4A.pharma_response_2
+        elif response.__contains__("private") or response.__contains__("optional"):
+            return BernieBotM4A.pharma_response_3
+        else:
+            return BernieBotM4A.retry_message_pharma
 
-    for words in BernieBotM4A.pharma_words:
-        if response.__contains__(words):
-            if response.__contains__("influence") or response.__contains__("power"):
-                return BernieBotM4A.pharma_response
-            elif response.__contains__("single-payer"):
-                return BernieBotM4A.pharma_response_2
-            elif response.__contains__("fight") or response.__contains__("defeat"):
-                return BernieBotM4A.pharma_response_3
-            elif response.__contains__("private") or response.__contains__("optional"):
-                return BernieBotM4A.pharma_response_4
-            else:
-                return BernieBotM4A.retry_message
+    elif subject == "covid":
+        if response.__contains__("job") or response.__contains__("employ") or response.__contains__("economy"):
+            return BernieBotM4A.covid_response_2
+        else:
+            return BernieBotM4A.covid_response
+
+    elif subject == "cost":
+        if response.__contains__("example") or response.__contains__("option"):
+            return BernieBotM4A.cost_response_2
+        else:
+            return BernieBotM4A.cost_response
+
+    elif subject == "system":
+        if response.__contains__("single-payer"):
+            return BernieBotM4A.system_response
+        elif response.__contains__("canada") or response.__contains__("world") or response.__contains__("country"):
+            return BernieBotM4A.system_response_2
+        elif response.__contains__("current") or response.__contains__("system"):
+            return BernieBotM4A.system_response_3
+        elif response.__contains__("spend") or response.__contains__("expensive"):
+            return BernieBotM4A.system_response_4
+        else:
+            return BernieBotM4A.retry_message_system
+
+    elif subject == "moral":
+        if response.__contains__("private") or response.__contains__("privilege") or response.__contains__("rich"):
+            return BernieBotM4A.moral_response
+        elif response.__contains__("human right") or response.__contains__("insurance")
+            return BernieBotM4A.moral_response_2
+        else:
+            return BernieBotM4A.moral_response_3
  
 
 
