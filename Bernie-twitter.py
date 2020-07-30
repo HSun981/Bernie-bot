@@ -257,18 +257,18 @@ def determine_medicare_subject(tweet):
     '''
     response = tweet.full_text.lower()
 
-    for word in BernieBotM4A.system_words:
-        if response.__contains__(word):
-            return "system"
-    for word in BernieBotM4A.covid_words:
-        if response.__contains__(word):
-            return "covid"
-    for word in BernieBotM4A.pharma_words:
-        if response.__contains__(word):
-            return "pharma"
     for word in BernieBotM4A.cost_words:
         if response.__contains__(word):
             return "cost"
+    for word in BernieBotM4A.covid_words:
+        if response.__contains__(word):
+            return "covid"
+    for word in BernieBotM4A.system_words:
+        if response.__contains__(word):
+            return "system"
+    for word in BernieBotM4A.pharma_words:
+        if response.__contains__(word):
+            return "pharma"
     return "moral"
 
 
@@ -417,4 +417,5 @@ tweet_markov = MarkovChain()
 tweet_markov.add_document(content)
 generated_text = my_markov.generate_text()
 api.update_status(generated_text[:TWEET_LIMIT])
+
 '''
