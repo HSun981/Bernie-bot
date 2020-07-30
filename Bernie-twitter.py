@@ -55,8 +55,8 @@ def searchApiTweet(keyword, count):
     -special-keywords-from-twitter-using-tweepy-in-python
     not tested yet
 
-    :param keyword:
-    :param count:
+    :param keyword: a string, the word to be contained in the tweet
+    :param count: the number of tweets captured
     :return:
     """
     # empty list to store parsed tweets
@@ -147,8 +147,8 @@ def findKeyword(message):
     """
     find the keyword in a message
     :param message:
-    :return: the first set of keywords in keyword bank that is mentioned; returns an empty set if no
-     existing set matches
+    :return: the first set of keywords in keyword bank that is mentioned; returns an empty set
+    if no existing set matches
     """
     for category in Keyword_Bank.catalog:
         for word in category:
