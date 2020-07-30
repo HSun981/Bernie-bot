@@ -16,10 +16,10 @@ from Berniespeech1 import training_doc1
 from Berniespeech2 import training_doc2
 from Berniespeech3 import training_doc3
 
-BERNIE_SCREEN_NAME = '@BernieSanders'       # Bernie's twitter screen name
-FILE_FOR_LAST_ID = 'last_seen_id1'     # last tweet id that we processed
-REPLY_INTERVAL = 60                     # the interval to reply
-TWEET_LIMIT = 280                       # the number of characters allowed in a tweet
+BERNIE_SCREEN_NAME = '@BernieSanders'  # Bernie's twitter screen name
+FILE_FOR_LAST_ID = 'last_seen_id1'  # last tweet id that we processed
+REPLY_INTERVAL = 60  # the interval to reply
+TWEET_LIMIT = 280  # the number of characters allowed in a tweet
 
 # Api set up: this should go in main if we have one, or make it global constant? --Heng
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
@@ -176,12 +176,13 @@ def GenerateReply(tweet):
 
     # Found Jared's Keyword
     elif category == Keyword_Bank.medicare_for_all:
-        message = "@%s " % tweet.user.screen_name + medicare_for_all(tweet) # call Jared's function here to
+        message = "@%s " % tweet.user.screen_name + medicare_for_all(
+            tweet)  # call Jared's function here to
         # generate new reply; might need to also track the thread
 
     # Found Keyword for SyBBURE presentation demo
     elif category == Keyword_Bank.sybbure:
-        if 'answer' in tweet.full_text:       # answer keyword to a random riddle
+        if 'answer' in tweet.full_text:  # answer keyword to a random riddle
             message = message + "That is correct, congrats!\nTeam Bernie bot loves you!"
         else:
             message = message + "Wrong answer. Try again!"
@@ -192,6 +193,7 @@ def GenerateReply(tweet):
         message = message + getRandomPastSpeech(BERNIE_SCREEN_NAME, category)
 
     return message[:TWEET_LIMIT]
+
 
 def retrieve_last_seen_id():
     """
@@ -222,7 +224,7 @@ def reply_to_tweets(last_seen_id):
     This function is adapted from Bernie-reply-code.
     """
     twt_to_reply = api.mentions_timeline(last_seen_id, tweet_mode='extended')
-    new_last_id = -1     # no change happened
+    new_last_id = -1  # no change happened
     for mention in reversed(twt_to_reply):
         print(str(mention.id) + ' - ' + mention.full_text, flush=True)
         api.update_status(GenerateReply(mention), mention.id)
@@ -246,7 +248,7 @@ def delete_tweets_about(keyword):
             api.destroy_status(tweet.id)
             num_deleted = num_deleted + 1
 
-           
+
 def determine_medicare_subject(tweet):
     '''
     determines tweet subject
@@ -269,6 +271,7 @@ def determine_medicare_subject(tweet):
             return "cost"
     return "moral"
 
+
 def medicare_for_all(tweet):
     '''
     replies with relevant response based on tweet and subject
@@ -280,7 +283,8 @@ def medicare_for_all(tweet):
     if subject == "pharma":
         if response.__contains__("influence") or response.__contains__("power"):
             return BernieBotM4A.pharma_response
-        elif response.__contains__("fight") or response.__contains__("defeat") or response.__contains__("oppose"):
+        elif response.__contains__("fight") or response.__contains__(
+                "defeat") or response.__contains__("oppose"):
             return BernieBotM4A.pharma_response_2
         elif response.__contains__("private") or response.__contains__("optional"):
             return BernieBotM4A.pharma_response_3
@@ -288,7 +292,8 @@ def medicare_for_all(tweet):
             return BernieBotM4A.retry_message_pharma
 
     elif subject == "covid":
-        if response.__contains__("job") or response.__contains__("employ") or response.__contains__("economy"):
+        if response.__contains__("job") or response.__contains__("employ") or response.__contains__(
+                "economy"):
             return BernieBotM4A.covid_response_2
         else:
             return BernieBotM4A.covid_response
@@ -302,7 +307,8 @@ def medicare_for_all(tweet):
     elif subject == "system":
         if response.__contains__("single-payer"):
             return BernieBotM4A.system_response
-        elif response.__contains__("canada") or response.__contains__("world") or response.__contains__("country"):
+        elif response.__contains__("canada") or response.__contains__(
+                "world") or response.__contains__("country"):
             return BernieBotM4A.system_response_2
         elif response.__contains__("current") or response.__contains__("system"):
             return BernieBotM4A.system_response_3
@@ -312,22 +318,16 @@ def medicare_for_all(tweet):
             return BernieBotM4A.retry_message_system
 
     elif subject == "moral":
-        if response.__contains__("private") or response.__contains__("privilege") or response.__contains__("rich"):
+        if response.__contains__("private") or response.__contains__(
+                "privilege") or response.__contains__("rich"):
             return BernieBotM4A.moral_response
-        elif response.__contains__("human right") or response.__contains__("insurance")
+        elif response.__contains__("human right") or response.__contains__("insurance"):
             return BernieBotM4A.moral_response_2
         else:
             return BernieBotM4A.moral_response_3
- 
 
 
-# The real main function
-# Get the last seen id from last run
-last_seen_id = retrieve_last_seen_id()
-
-#generative portion of code
-
-
+# generative portion of code
 class MarkovChain:
     def __init__(self):
         self.lookup_dict = defaultdict(list)
@@ -383,37 +383,27 @@ class MarkovChain:
         return " ".join(output)
 
 
+# The real main function
+# Get the last seen id from last run
+last_seen_id = retrieve_last_seen_id()
 
-
+# train the MarkovChain
 my_markov = MarkovChain()
 my_markov.add_document(training_doc1)
 my_markov.add_document(training_doc2)
 my_markov.add_document(training_doc3)
 
+
 # iterates through the search for keyword and reply process every REPLY_INTERVAL of seconds
 while True:
     new_id = reply_to_tweets(last_seen_id)
-    if new_id != -1:        #if is change where at least a new tweet was replied
+    if new_id != -1:  # if is change where at least a new tweet was replied
         last_seen_id = new_id
         store_last_seen_id(last_seen_id)
-    generated_text = my_markov.generate_text()
-    api.update_status(generated_text)
+    #generated_text = my_markov.generate_text()
+    #api.update_status(generated_text[:TWEET_LIMIT])
     time.sleep(REPLY_INTERVAL)
 
-
-
-
-
-# user = api.get_user('BernieSanders')
-# public_tweets = api.user_timeline('BernieSanders')
-# for tweet in public_tweets:
-# print(tweet.text)
-# print("Testrun Start")
-# api.update_status(message)
-# getUser()
-# getUserTweet(BERNIE_SCREEN_NAME)
-# tweetPastSpeech(BERNIE_SCREEN_NAME, 'health')
-# print("Testrun Over")
 
 
 # Test creating a Markov from twitter
@@ -422,6 +412,4 @@ with open('Bernie-twitter.py', 'r') as file:
 tweet_markov = MarkovChain()
 tweet_markov.add_document(content)
 generated_text = my_markov.generate_text()
-api.update_status(generated_text)
-
-# Jared says hi
+api.update_status(generated_text[:TWEET_LIMIT])
